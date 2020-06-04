@@ -1,11 +1,11 @@
 #!/bin/sh
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3.7
 # File name is calibre-web
 # Place this file into /etc/rc.d
-# Edit /etc/rc.conf to include calibre_enable=YES
+# Edit /etc/rc.conf to include calibre_web_enable=YES
 # By default calibre-web runs using root,
 # if you want to run calibre-web as another user,
-# include calibre_user=username to /etc/rc.conf
+# include calibre_web_user=username to /etc/rc.conf
 
 # PROVIDE: calibre_web
 # BEFORE: LOGIN
@@ -18,7 +18,7 @@ rcvar=calibre_web_enable
 
 pidfile="/var/run/${name}.pid"
 PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
-command="python3 /usr/local/app/calibre-web/cps.py"
+command="python3 /usr/local/app/calibre-web/cps.py -p /usr/local/etc/calibre-web/app.db -g /usr/local/etc/calibre-web/gdrive.db"
 
 start_cmd="${name}_start"
 stop_cmd="${name}_stop"
@@ -45,7 +45,7 @@ calibre_web_stop()
         echo "Stopping ${name}"
         kill `cat ${pidfile}`;
         sleep 1
-         else
+    else
         echo "${name} is not running"
     fi
 }
