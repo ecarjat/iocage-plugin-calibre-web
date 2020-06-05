@@ -1,3 +1,4 @@
 {
-    "adminportal": "http://%%IP%%:8083/"
+    "adminportal": "http://%%IP%%:8083/",
+    "docurl": "https://github.com/janeczku/calibre-web/blob/master/README.md"
 }
