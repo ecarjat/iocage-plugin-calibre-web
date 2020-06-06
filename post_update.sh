@@ -26,6 +26,6 @@ pip install -U -r /usr/local/app/calibre-web/requirements.txt
 pip install -U -r /usr/local/app/calibre-web/optional-requirements.txt
 
 
-sysrc -f /etc/rc.conf calibre_web_enable="YES"
+sysrc "calibre_web_enable=YES"
 
 service calibre_web restart

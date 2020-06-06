@@ -1,11 +1,9 @@
 #!/bin/sh
-#!/usr/bin/env python3.7
-# File name is calibre-web
+
+# File name is calibre_web
 # Place this file into /etc/rc.d
 # Edit /etc/rc.conf to include calibre_web_enable=YES
-# By default calibre-web runs using root,
-# if you want to run calibre-web as another user,
-# include calibre_web_user=username to /etc/rc.conf
+# Edit /etc/rc.conf to change default service configuration
 
 # PROVIDE: calibre_web
 # BEFORE: LOGIN
@@ -13,19 +11,38 @@
 
 . /etc/rc.subr
 
+PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
+
 name=calibre_web
 rcvar=calibre_web_enable
 
-pidfile="/var/run/${name}.pid"
-PATH="/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin"
-command="python3 /usr/local/app/calibre-web/cps.py -p /usr/local/etc/calibre-web/app.db -g /usr/local/etc/calibre-web/gdrive.db"
+load_rc_config $name
 
+: ${calibre_web_enable:=NO}
+: ${calibre_web_user:=calibreweb}
+: ${calibre_web_dbpath:=/usr/local/etc/calibre-web}
+: ${calibre_web_logfile:=/var/log/calibre-web/calibre-web.log}
+
+pidfile="/var/run/${name}/${name}.pid"
+
+#shebang error?
+command="env CALIBRE_DBPATH=${calibre_web_dbpath} python3 /usr/local/app/calibre-web/cps.py"
+#command_args ???
+#required_dirs="${calibre_web_dbpath}"
+
+#calibre_web_home=${calibre_home:-$(getent passwd ${calibre_web_user} | awk -F: '{print $6}')}
+#calibre_web_env="${calibre_web_env} CALIBRE_DBPATH=${calibre_web_dbpath}"
+
+start_precmd="${name}_prestart"
 start_cmd="${name}_start"
 stop_cmd="${name}_stop"
 
-load_rc_config $name
-: ${calibre_web_enable:=NO}
-: ${calibre_web_user:=calibreweb}
+calibre_web_prestart()
+{
+	install -d -o ${calibre_web_user} -m 755 /var/run/${name}
+	install -d -o ${calibre_web_user} -m 755 ${calibre_web_dbpath}
+    install -d -o ${calibre_web_user} -m 755 `dirname ${calibre_web_logfile}`
+}
 
 calibre_web_start()
 {
@@ -34,7 +51,7 @@ calibre_web_start()
         echo "${name} is already running"
     else
         echo "Starting ${name}"
-        /usr/sbin/daemon -p ${pidfile} ${command}
+        /usr/sbin/daemon -u ${calibre_web_user} -p ${pidfile} ${command}
     fi
 }
 

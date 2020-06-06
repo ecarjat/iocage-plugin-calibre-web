@@ -2,8 +2,6 @@
 
 echo "Create location for calibre-web"
 mkdir /usr/local/app
-echo "Create location for calibre-web database"
-mkdir /usr/local/etc/calibre-web
 
 echo "Download calibre-web repo"
 git clone https://github.com/janeczku/calibre-web.git /usr/local/app/calibre-web

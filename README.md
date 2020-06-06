@@ -1,15 +1,16 @@
-Iocage [Calibre-Web](https://github.com/janeczku/calibre-web) plugin for freenas.
+# Iocage [Calibre-Web](https://github.com/janeczku/calibre-web) plugin for freenas.
 
 The relevant details are:
 
 * The default admin credentials are "admin:admin123"
 * The config folder is "/usr/local/etc/calibre-web"
+* By default the log file is created in the config folder, but you can change the logfile path to "/var/log/calibre-web/calibre-web.log"
 * The Calibre E-Book Converter path is "/usr/local/bin/ebook-convert"
-* The user running Calibre-Web is "root" (to be changed)
+* The user running Calibre-Web is "calibreweb" (ID 488)
 
 Calibre-Web can be updated using either the built-in admin console or the Plugin update command.
 
-# Testing manually
+## Testing manually
 
 In freenas shell run:
 
