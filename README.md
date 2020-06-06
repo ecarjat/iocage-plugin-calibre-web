@@ -1,5 +1,14 @@
 Iocage [Calibre-Web](https://github.com/janeczku/calibre-web) plugin for freenas.
 
+The relevant details are:
+
+* The default admin credentials are "admin:admin123"
+* The config folder is "/usr/local/etc/calibre-web"
+* The Calibre E-Book Converter path is "/usr/local/bin/ebook-convert"
+* The user running Calibre-Web is "root" (to be changed)
+
+Calibre-Web can be updated using either the built-in admin console or the Plugin update command.
+
 # Testing manually
 
 In freenas shell run:
@@ -8,7 +17,5 @@ In freenas shell run:
 * `iocage fetch -P calibre-web.json --name calibre-web dhcp=on --branch 'test'`
 
 ## TODO
-1. Maybe update can be done from inside the app (check repo arter updage)
-2. Show version in Freenas plugins
-3. Add settings (https://github.com/timsavage/iocage-plugin-dnsmasq or https://github.com/gitbulb/iocage-plugin-openvpn) maybe to configure database path
-4. Add conversion binaries (ebook-convert, unrar?)
+1. Change the user that runs the service (from root to calibreweb)
+2. Add settings (like https://github.com/timsavage/iocage-plugin-dnsmasq or https://github.com/gitbulb/iocage-plugin-openvpn) when available in Freenas UI

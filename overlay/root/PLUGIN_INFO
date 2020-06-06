@@ -1,0 +1,7 @@
+Calibre-Web has been installed!
+* The default admin credentials are "admin:admin123"
+* The config folder is "/usr/local/etc/calibre-web"
+* The Calibre E-Book Converter path is "/usr/local/bin/ebook-convert"
+* The user running Calibre-Web is "root" (to be changed)
+
+Calibre-Web can be updated using either the built-in admin console or the Plugin update command.

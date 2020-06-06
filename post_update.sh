@@ -23,6 +23,7 @@ git -C /usr/local/app/calibre-web clean -f -d
 
 echo "Installing requirements"
 pip install -U -r /usr/local/app/calibre-web/requirements.txt
+pip install -U -r /usr/local/app/calibre-web/optional-requirements.txt
 
 
 sysrc -f /etc/rc.conf calibre_web_enable="YES"
