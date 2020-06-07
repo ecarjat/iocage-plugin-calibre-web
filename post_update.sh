@@ -7,24 +7,27 @@ echo "Update Calibre-Web installation"
 
 git_url="https://github.com/janeczku/calibre-web.git"
 
+installdir=$installdir
+
 echo "Re-init git"
-rm -rf /usr/local/app/calibre-web/.git
-git -C /usr/local/app/calibre-web init
+rm -rf $installdir/.git
+git -C $installdir init
 
 echo "Setting git remote to ${git_url}"
-git -C /usr/local/app/calibre-web remote add origin ${git_url}
+git -C $installdir remote add origin ${git_url}
 
 echo "Reset calibre-web to latest master"
-git -C /usr/local/app/calibre-web fetch origin master
-git -C /usr/local/app/calibre-web reset --hard origin/master
+git -C $installdir fetch origin master
+git -C $installdir reset --hard origin/master
 
 echo "Git cleanup"
-git -C /usr/local/app/calibre-web clean -f -d
+git -C $installdir clean -f -d
 
 echo "Installing requirements"
-pip install -U -r /usr/local/app/calibre-web/requirements.txt
-pip install -U -r /usr/local/app/calibre-web/optional-requirements.txt
+pip install -U -r $installdir/requirements.txt
+pip install -U -r $installdir/optional-requirements.txt
 
+chown -R calibreweb:calibreweb $installdir
 
 sysrc "calibre_web_enable=YES"
 
