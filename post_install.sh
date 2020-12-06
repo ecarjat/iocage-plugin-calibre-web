@@ -8,7 +8,7 @@ git clone https://github.com/janeczku/calibre-web.git /usr/local/app/calibre-web
 
 echo "Install dependencies"
 pip install -r /usr/local/app/calibre-web/requirements.txt
-pip install -r /usr/local/app/calibre-web/optional-requirements.txt
+#pip install -r /usr/local/app/calibre-web/optional-requirements.txt
 
 echo "Create calibreweb user"
 pw user add calibreweb -c calibreweb -u 488 -d /nonexistent -s /usr/bin/nologin

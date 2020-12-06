@@ -21,17 +21,12 @@ load_rc_config $name
 : ${calibre_web_enable:=NO}
 : ${calibre_web_user:=calibreweb}
 : ${calibre_web_dbpath:=/usr/local/etc/calibre-web}
-: ${calibre_web_logfile:=/var/log/calibre-web/calibre-web.log}
 
 pidfile="/var/run/${name}/${name}.pid"
+procname="python"
+command="/usr/local/app/calibre-web/cps.py"
 
-#shebang error?
-command="env CALIBRE_DBPATH=${calibre_web_dbpath} python3 /usr/local/app/calibre-web/cps.py"
-#command_args ???
-#required_dirs="${calibre_web_dbpath}"
-
-#calibre_web_home=${calibre_home:-$(getent passwd ${calibre_web_user} | awk -F: '{print $6}')}
-#calibre_web_env="${calibre_web_env} CALIBRE_DBPATH=${calibre_web_dbpath}"
+export CALIBRE_DBPATH=${calibre_web_dbpath}
 
 start_precmd="${name}_prestart"
 start_cmd="${name}_start"
@@ -41,7 +36,6 @@ calibre_web_prestart()
 {
 	install -d -o ${calibre_web_user} -m 755 /var/run/${name}
 	install -d -o ${calibre_web_user} -m 755 ${calibre_web_dbpath}
-    install -d -o ${calibre_web_user} -m 755 `dirname ${calibre_web_logfile}`
 }
 
 calibre_web_start()
